@@ -3,6 +3,7 @@ import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { BarChart } from 'react-native-chart-kit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const GraficoContador = ({ sensorId }) => {
     const [contador, setContador] = useState(null);
@@ -15,8 +16,8 @@ const GraficoContador = ({ sensorId }) => {
                 const token = await AsyncStorage.getItem('access_token');
                 const requestData = {
                     sensor_id: sensorId,
-                    timestamp_gte: "2024-04-01T00:00:00",
-                    timestamp_lt: "2024-04-30T00:00:00"
+                    // timestamp_gte: "2024-04-01T00:00:00",
+                    // timestamp_lt: "2024-04-30T00:00:00"
                 };
                 const response = await axios.post('https://anabeatriztorrecilas.pythonanywhere.com/api/contador_filter/', requestData, {
                     headers: {
@@ -69,6 +70,9 @@ const GraficoContador = ({ sensorId }) => {
 
     return (
         <View style={styles.container}>
+            <View style={styles.icon}>
+                <Icon name="counter" size='50px' color='#DE013F'/>
+            </View>
             <Text style={styles.total}>Total de registros: {contador}</Text>
             <BarChart
                 style={styles.chart}
@@ -76,7 +80,7 @@ const GraficoContador = ({ sensorId }) => {
                 width={400}
                 height={400}
                 chartConfig={chartConfig}
-                verticalLabelRotation={30}
+                verticalLabelRotation={0.5}
             />
         </View>
     );
@@ -103,6 +107,12 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         borderRadius: 16,
     },
+    icon: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10
+    }
 });
 
 export default GraficoContador;

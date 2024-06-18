@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Dimensions } from 'react-native';
+import Icon from 'react-native-vector-icons/Entypo';
 
 const GraficoLuminosidade = ({ sensorId }) => {
     const [luminosidades, setLuminosidades] = useState([]);
@@ -15,10 +15,10 @@ const GraficoLuminosidade = ({ sensorId }) => {
                 const token = await AsyncStorage.getItem('access_token');
                 const requestData = {
                     sensor_id: sensorId,
-                    valor_gte: 10,
-                    valor_lt: 1000,
-                    timestamp_gte: "2024-04-21T00:00:00",
-                    timestamp_lt: "2024-04-22T00:00:00"
+                    // valor_gte: 10,
+                    // valor_lt: 1000,
+                    // timestamp_gte: "2024-04-21T00:00:00",
+                    // timestamp_lt: "2024-04-22T00:00:00"
                 };
                 const response = await axios.post('https://anabeatriztorrecilas.pythonanywhere.com/api/luminosidade_filter/', requestData, {
                     params: {
@@ -54,6 +54,7 @@ const GraficoLuminosidade = ({ sensorId }) => {
 
     return (
         <View style={styles.container}>
+            <Icon name="light-up" size='50px' color='#DE013F' />
             <Text style={styles.chartTitle}>Média de Luminosidade</Text>
             <Text style={styles.mediaText}>{calcularMedia().toFixed(2)} lux</Text>
         </View>
@@ -62,21 +63,24 @@ const GraficoLuminosidade = ({ sensorId }) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#222',
-        padding: 10,
+        backgroundColor: '#dbd3d5',
+        padding: 30,
         borderRadius: 10,
         marginBottom: 20,
+        alignItems: 'center'
     },
     chartTitle: {
         fontSize: 20,
         textAlign: 'center',
         marginVertical: 10,
-        color: '#fff'
+        color: '#fff',
+        fontWeight: 'bold',
     },
     mediaText: {
         fontSize: 24,
         textAlign: 'center',
-        color: '#fff'
+        color: '#fff',
+        fontWeight: 'bold',
     },
 });
 

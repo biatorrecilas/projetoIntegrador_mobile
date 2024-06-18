@@ -3,6 +3,7 @@ import { View, Text, ActivityIndicator, StyleSheet, ScrollView } from "react-nat
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import axios from "axios"; 
 import Icon from 'react-native-vector-icons/FontAwesome6';
+import { Filtro } from "../componentes/Filtro";
 
 export default function Sensores() { 
     const [sensores, setSensores] = useState([]); 
@@ -29,6 +30,10 @@ export default function Sensores() {
         fetchSensores(); 
     }, []); 
 
+    const atualizarSensoresFiltrados = (sensoresFiltrados) => {
+        setSensores(sensoresFiltrados);
+    };
+
     if (loading) { 
         return <View><Text>Carregando...</Text></View>;  
     } 
@@ -41,6 +46,7 @@ export default function Sensores() {
             <Text style={styles.title}>Monitoramento de Sensores</Text> 
             <Text style={styles.title}>Senai “Roberto Mange”</Text> 
             <ScrollView style={styles.scrollView}>
+                <Filtro atualizarSensoresFiltrados={atualizarSensoresFiltrados} />
                 <View style={styles.sensoresContainer}> 
                     {sensores.map(sensor => ( 
                         <View key={sensor.id} style={styles.sensor}> 
@@ -76,7 +82,8 @@ const styles = StyleSheet.create({
     title: { 
         fontSize: 20, 
         fontWeight: 'bold', 
-        marginBottom: 5
+        marginBottom: 5,
+        
     }, 
     scrollView: {
         flex: 1,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Dimensions } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const GraficoTemperatura = ({ sensorId }) => {
     const [temperaturas, setTemperaturas] = useState([]);
@@ -15,10 +15,10 @@ const GraficoTemperatura = ({ sensorId }) => {
                 const token = await AsyncStorage.getItem('access_token');
                 const requestData = {
                     sensor_id: sensorId,
-                    valor_gte: 10,
-                    valor_lt: 34,
-                    timestamp_gte: "2024-04-01T00:00:00",
-                    timestamp_lt: "2024-04-02T00:00:00"
+                    // valor_gte: 10,
+                    // valor_lt: 34,
+                    // timestamp_gte: "2024-04-01T00:00:00",
+                    // timestamp_lt: "2024-04-02T00:00:00"
                 };
                 const response = await axios.post('https://anabeatriztorrecilas.pythonanywhere.com/api/temperatura_filter/', requestData, {
                     params: {
@@ -54,6 +54,7 @@ const GraficoTemperatura = ({ sensorId }) => {
 
     return (
         <View style={styles.container}>
+            <Icon name="temperature-high" size='40px' color='#DE013F' />
             <Text style={styles.chartTitle}>Média da Temperatura</Text>
             <Text style={styles.mediaText}>{calcularMedia().toFixed(2)} °C</Text>
         </View>
@@ -62,21 +63,24 @@ const GraficoTemperatura = ({ sensorId }) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#222',
-        padding: 10,
+        backgroundColor: '#dbd3d5',
+        padding: 30,
         borderRadius: 10,
         marginBottom: 20,
+        alignItems: 'center'
     },
     chartTitle: {
         fontSize: 20,
         textAlign: 'center',
         marginVertical: 10,
-        color: '#fff'
+        color: '#fff',
+        fontWeight: 'bold',
     },
     mediaText: {
         fontSize: 24,
         textAlign: 'center',
-        color: '#fff'
+        color: '#fff',
+        fontWeight: 'bold',
     },
 });
 

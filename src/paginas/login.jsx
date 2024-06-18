@@ -23,7 +23,7 @@ export default function Login({ navigation }) {
         password: data.senha
       });
 
-      const { access, usuario, refresh } = response.data;
+      const { access, refresh } = response.data;
       await AsyncStorage.setItem('access_token', access);
       await AsyncStorage.setItem('refresh_token', refresh);
 

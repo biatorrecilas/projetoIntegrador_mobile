@@ -61,7 +61,7 @@ export default function Home({ navigation }) {
                 <View style={estilos.linha}></View>
                 <Text style={estilos.texto}>{dataHora !== null ? dataHora : 'Carregando...'}</Text>
                 <TouchableOpacity style={estilos.botao} onPress={() => setModalVisible(true)}>
-                    <Text style={estilos.botaoTexto}>Ana Beatriz Torrecilas - 2DSMB-A</Text>
+                    <Text style={estilos.botaoTexto}>Conheça o Projeto Integrador</Text>
                 </TouchableOpacity>
 
                 <Modal
@@ -71,12 +71,10 @@ export default function Home({ navigation }) {
             >
                 <View style={estilos.modalContent}>
                     <Text style={estilos.titulo}>Sobre o projeto</Text>
-                    <Text>Desenvolvido por: Ana Beatriz Nardy Torrecilas</Text>
-                    <Text></Text>
-                    <Text>Curso: 2DSMB-A</Text>
-                    <Text></Text>
-                    <Text>O Projeto Integrador do segundo semestre do Curso de Desenvolvimento de Sistemas tem como objetivo monitorar as informações de sensores de temperatura, luminosidade, umidade e contagem no SENAI "Roberto Mange". Para isso, é utilizado um código BackEnd desenvolvido em Django com Python e um FrontEnd em React.</Text>
-                    <TouchableOpacity onPress={() => setModalVisible(false)} style={estilos.botao}>
+                    <Text style={estilos.textoDestaque}>Curso: 2DSMB-A</Text>
+                    <Text style={estilos.textoDestaque}>Desenvolvido por: Ana Beatriz Nardy Torrecilas</Text>
+                    <Text>O Projeto Integrador do segundo semestre do Curso de Desenvolvimento de Sistemas tem como objetivo monitorar informações de localização, assim como de sensores de temperatura, luminosidade, umidade e contagem no SENAI 'Roberto Mange'. Para isso, utilizamos um código BackEnd desenvolvido em Django com Python, além de um aplicativo móvel em React Native.</Text>
+                    <TouchableOpacity onPress={() => setModalVisible(false)} style={estilos.botaoFechar}>
                         <Text style={estilos.botaoTexto}>Fechar</Text>
                     </TouchableOpacity>
                 </View>
@@ -143,5 +141,18 @@ const estilos = StyleSheet.create({
     modalContent: {
         fontSize: 20,
         padding: 40,
+    },
+    textoDestaque: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        marginTop: 5,
+        marginBottom: 10
+    },
+    botaoFechar: {
+        backgroundColor: '#DE013F',
+        marginTop: 50,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
     },
 });
