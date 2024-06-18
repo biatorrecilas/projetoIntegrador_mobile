@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import axios from 'axios';
 
 export default function Home({ navigation }) {
     const [temperatura, setTemperatura] = useState(null);
     const [dataHora, setDataHora] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
+
 
     useEffect(() => {
         const buscarTemperatura = async () => {
@@ -58,9 +60,27 @@ export default function Home({ navigation }) {
                 </View>
                 <View style={estilos.linha}></View>
                 <Text style={estilos.texto}>{dataHora !== null ? dataHora : 'Carregando...'}</Text>
-                <TouchableOpacity style={estilos.botao}>
+                <TouchableOpacity style={estilos.botao} onPress={() => setModalVisible(true)}>
                     <Text style={estilos.botaoTexto}>Ana Beatriz Torrecilas - 2DSMB-A</Text>
                 </TouchableOpacity>
+
+                <Modal
+                visible={modalVisible}
+                animationType="slide"
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={estilos.modalContent}>
+                    <Text style={estilos.titulo}>Sobre o projeto</Text>
+                    <Text>Desenvolvido por: Ana Beatriz Nardy Torrecilas</Text>
+                    <Text></Text>
+                    <Text>Curso: 2DSMB-A</Text>
+                    <Text></Text>
+                    <Text>O Projeto Integrador do segundo semestre do Curso de Desenvolvimento de Sistemas tem como objetivo monitorar as informações de sensores de temperatura, luminosidade, umidade e contagem no SENAI "Roberto Mange". Para isso, é utilizado um código BackEnd desenvolvido em Django com Python e um FrontEnd em React.</Text>
+                    <TouchableOpacity onPress={() => setModalVisible(false)} style={estilos.botao}>
+                        <Text style={estilos.botaoTexto}>Fechar</Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
                 
             </View>
         </View>
@@ -90,7 +110,7 @@ const estilos = StyleSheet.create({
         
     },
     texto: {
-        fontSize: 18,
+        fontSize: 17,
         fontWeight: 'bold',
         color: 'white',
         textAlign: 'center',
@@ -112,5 +132,16 @@ const estilos = StyleSheet.create({
     botaoTexto: {
         color: 'white',
         fontSize: 18,
+        textAlign: 'center',
+    },
+    titulo: { 
+        fontSize: 20, 
+        fontWeight: 'bold', 
+        marginBottom: 10,
+        color: '#DE013F',
+    }, 
+    modalContent: {
+        fontSize: 20,
+        padding: 40,
     },
 });

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ActivityIndicator, Text, Image, Modal, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Text, Image, Modal, TouchableOpacity, ScrollView  } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import GraficoTemperatura from '../componentes/GraficoTemperatura';
+import GraficoLuminosidade from '../componentes/GraficoLuminosidade';
+import GraficoUmidade from '../componentes/GraficoUmidade';
+import GraficoContador from '../componentes/GraficoContador';
 
 const Mapa = () => {
     const [location, setLocation] = useState(null);
@@ -15,7 +19,7 @@ const Mapa = () => {
     const [modalVisible, setModalVisible] = useState(false);
 
 
-    const sensorIds = [17, 109, 103, 107, 91];
+    const sensorIds = [17, 20, 91, 103, 107, 109];
     
     const handleMarkerPress = (sensor) => {
         setSelectedMarker(sensor);
@@ -47,6 +51,7 @@ const Mapa = () => {
         async function fetchSensores() {
             try {
                 const token = await AsyncStorage.getItem('access_token');
+                
                 const response = await axios.get('https://anabeatriztorrecilas.pythonanywhere.com/api/sensores/', {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -161,17 +166,30 @@ const Mapa = () => {
                 onRequestClose={() => setModalVisible(false)}
             >
                 <View style={styles.modalContent}>
-                    <Text style={styles.titulo}>INFORMAÇÕES DO SENSOR</Text>
-                    <Text>ID: {selectedMarker?.id}</Text>
-                    <Text>Localização: {selectedMarker?.localizacao}</Text>
-                    <Text>Tipo: {selectedMarker?.tipo}</Text>
-                    <Text>Responsável: {selectedMarker?.responsavel}</Text>
-                    <Text>Latitude: {selectedMarker?.latitude}</Text>
-                    <Text>Longitude: {selectedMarker?.longitude}</Text>
-                    <Text>Valores: </Text>
-                    <TouchableOpacity onPress={() => setModalVisible(false)}>
-                        <Text style={styles.botao}>Fechar</Text>
-                    </TouchableOpacity>
+                    <ScrollView contentContainerStyle={styles.scrollContainer}>
+                            <Text style={styles.titulo}>INFORMAÇÕES DO SENSOR</Text>
+                            {selectedMarker ? (
+                                <>
+                                    <Text>ID: {selectedMarker.id}</Text>
+                                    <Text>Localização: {selectedMarker.localizacao}</Text>
+                                    <Text>Tipo: {selectedMarker.tipo}</Text>
+                                    <Text>Responsável: {selectedMarker.responsavel}</Text>
+                                    <Text>Latitude: {selectedMarker.latitude}</Text>
+                                    <Text>Longitude: {selectedMarker.longitude}</Text>
+                                    <Text></Text>
+                                    
+                                    {selectedMarker.tipo === 'Temperatura' && <GraficoTemperatura sensorId={selectedMarker.id} />}
+                                    {selectedMarker.tipo === 'Luminosidade' && <GraficoLuminosidade sensorId={selectedMarker.id} />}
+                                    {selectedMarker.tipo === 'Umidade' && <GraficoUmidade sensorId={selectedMarker.id} />}
+                                    {selectedMarker.tipo === 'Contador' && <GraficoContador sensorId={selectedMarker.id} />}
+                                </>
+                            ) : (
+                                <Text>Carregando dados do sensor...</Text>
+                            )}
+                            <TouchableOpacity onPress={() => setModalVisible(false)}>
+                                <Text style={styles.botao}>Fechar</Text>
+                            </TouchableOpacity>
+                    </ScrollView>
                 </View>
             </Modal>
 
@@ -239,6 +257,7 @@ const styles = StyleSheet.create({
     modalContent: {
         fontSize: 20,
         padding: 40,
+        
     },
     botao: {
         backgroundColor: '#DE013F',
@@ -251,6 +270,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: 30
       },
+      scrollContainer: {
+        flexGrow: 1,
+        
+        justifyContent: 'flex-start',
+        paddingBottom: 20,
+      }
 });
 
 export default Mapa;
