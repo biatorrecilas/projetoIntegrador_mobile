@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios'; // Certifique-se de instalar o axios: npm install axios
+import axios from 'axios'; 
 
 const schemaCadastro = z.object({
   usuario: z.string().min(5, 'O mínimo de caracteres é 5!').max(10, 'O máximo de caracteres é 10!'),
