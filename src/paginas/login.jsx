@@ -28,13 +28,13 @@ export default function Login({ navigation }) {
       await AsyncStorage.setItem('refresh_token', refresh);
 
       console.log(`Usuário: ${data.usuario}`);
-      console.log(`Senha: ${data.senha}`);
       Alert.alert("Sucesso", "Bem-vindo ao Projeto Integrador!");
       navigation.navigate('MainTabs');
+
     } catch (error) {
-      console.log('Erro na autentificação', error);
+      console.log('Erro na Autentificação', error);
       const errorMessage = error.response?.data?.detail || "Erro desconhecido";
-      Alert.alert("Erro na autentificação", errorMessage);
+      Alert.alert("Erro na Autentificação", errorMessage);
     }
   };
 

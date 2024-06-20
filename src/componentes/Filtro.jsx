@@ -37,7 +37,7 @@ export function Filtro({ atualizarSensoresFiltrados }) {
             );
             atualizarSensoresFiltrados(response.data);
         } catch (error) {
-            console.error('Error fetching sensors:', error);
+            console.error('Erro:', error);
             setError(error);
         } finally {
             setLoading(false);

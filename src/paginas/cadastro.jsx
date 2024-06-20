@@ -49,9 +49,9 @@ export default function Cadastro({ navigation }) {
       navigation.navigate('Login');
 
     } catch (error) {
-      console.error("Erro no cadastro:", error);
+      console.error("Erro no Cadastro:", error);
       const errorMessage = error.response?.data?.detail || "Erro desconhecido";
-      Alert.alert("Erro no cadastro", errorMessage);
+      Alert.alert("Erro no Cadastro", errorMessage);
     }
   };
 

@@ -68,18 +68,17 @@ export default function Home({ navigation }) {
                 visible={modalVisible}
                 animationType="slide"
                 onRequestClose={() => setModalVisible(false)}
-            >
-                <View style={estilos.modalContent}>
-                    <Text style={estilos.titulo}>Sobre o projeto</Text>
-                    <Text style={estilos.textoDestaque}>Curso: 2DSMB-A</Text>
-                    <Text style={estilos.textoDestaque}>Desenvolvido por: Ana Beatriz Nardy Torrecilas</Text>
-                    <Text>O Projeto Integrador do segundo semestre do Curso de Desenvolvimento de Sistemas tem como objetivo monitorar informações de localização, assim como de sensores de temperatura, luminosidade, umidade e contagem no SENAI 'Roberto Mange'. Para isso, utilizamos um código BackEnd desenvolvido em Django com Python, além de um aplicativo móvel em React Native.</Text>
-                    <TouchableOpacity onPress={() => setModalVisible(false)} style={estilos.botaoFechar}>
-                        <Text style={estilos.botaoTexto}>Fechar</Text>
-                    </TouchableOpacity>
-                </View>
-            </Modal>
-                
+                >
+                    <View style={estilos.modalContent}>
+                        <Text style={estilos.titulo}>Sobre o projeto</Text>
+                        <Text style={estilos.textoDestaque}>Curso: 2DSMB-A</Text>
+                        <Text style={estilos.textoDestaque}>Desenvolvido por: Ana Beatriz Nardy Torrecilas</Text>
+                        <Text>O Projeto Integrador do segundo semestre do Curso de Desenvolvimento de Sistemas tem como objetivo monitorar informações de localização, assim como de sensores de temperatura, luminosidade, umidade e contagem no SENAI 'Roberto Mange'. Para isso, utilizamos um código BackEnd desenvolvido em Django com Python, além de um aplicativo móvel em React Native.</Text>
+                        <TouchableOpacity onPress={() => setModalVisible(false)} style={estilos.botaoFechar}>
+                            <Text style={estilos.botaoTexto}>Fechar</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
             </View>
         </View>
     );
